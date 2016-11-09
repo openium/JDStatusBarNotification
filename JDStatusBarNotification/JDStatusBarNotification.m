@@ -23,7 +23,7 @@
 - (UIWindow*)mainApplicationWindowIgnoringWindow:(UIWindow*)ignoringWindow;
 @end
 
-@interface JDStatusBarNotification ()
+@interface JDStatusBarNotification () <CAAnimationDelegate>
 @property (nonatomic, strong, readonly) UIWindow *overlayWindow;
 @property (nonatomic, strong, readonly) UIView *progressView;
 @property (nonatomic, strong, readonly) JDStatusBarView *topBar;
@@ -283,10 +283,10 @@
     void(^complete)(BOOL) = ^(BOOL finished) {
         [self.overlayWindow removeFromSuperview];
         [self.overlayWindow setHidden:YES];
-        _overlayWindow.rootViewController = nil;
-        _overlayWindow = nil;
-        _progressView = nil;
-        _topBar = nil;
+        self->_overlayWindow.rootViewController = nil;
+        self->_overlayWindow = nil;
+        self->_progressView = nil;
+        self->_topBar = nil;
     };
 
     if (animated) {
@@ -533,9 +533,9 @@
     return topController;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return [[self mainController] shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
-}
+//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+//    return [[self mainController] shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+//}
 
 - (BOOL)shouldAutorotate {
     return [[self mainController] shouldAutorotate];
